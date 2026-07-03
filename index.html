@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alizay Tanveer — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-soft: #4a4a6a;
+    --accent: #7c5cbf;
+    --accent-light: #ede9f8;
+    --gold: #c9a84c;
+    --surface: #faf9fc;
+    --white: #ffffff;
+    --border: #e8e4f0;
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(250,249,252,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500;
+    color: var(--ink-soft); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 96px 2rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+    gap: 4rem;
+  }
+  .hero-text { flex: 1; }
+  .hero-eyebrow {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-tagline {
+    font-size: 1.1rem; color: var(--ink-soft);
+    max-width: 480px; margin-bottom: 2rem;
+  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .badge {
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid #d5c8f5;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem; font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,92,191,0.3); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-outline:hover { background: var(--accent-light); }
+
+  .hero-visual {
+    flex: 0 0 340px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 40px rgba(124,92,191,0.08);
+  }
+  .hero-visual-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+  .stat-row { display: flex; justify-content: space-between; margin-bottom: 1.25rem; }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; color: var(--accent); font-weight: 700;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--ink-soft); margin-top: 2px; }
+  .mini-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tech-tag {
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--ink-soft);
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--ink); margin-bottom: 0.75rem;
+  }
+  .section-sub { color: var(--ink-soft); max-width: 560px; margin-bottom: 3rem; }
+
+  /* PROJECT SECTION */
+  .project-bg { background: var(--white); }
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .project-header {
+    background: linear-gradient(135deg, var(--accent) 0%, #9b7ddb 100%);
+    padding: 3rem 2.5rem;
+    color: #fff;
+  }
+  .project-tag {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 0.25rem 0.8rem;
+    display: inline-block; margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; margin-bottom: 0.75rem;
+  }
+  .project-desc { opacity: 0.9; max-width: 520px; line-height: 1.6; }
+
+  .project-body { padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .feature-list { list-style: none; }
+  .feature-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem; color: var(--ink-soft);
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list li::before {
+    content: '✦';
+    color: var(--accent);
+    font-size: 0.65rem;
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+  }
+  .role-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+  .role-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+  .role-card-title { font-weight: 600; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .role-card-desc { font-size: 0.82rem; color: var(--ink-soft); }
+
+  .project-tech-row {
+    padding: 1.5rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+  }
+  .project-tech-label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin-right: 0.25rem; }
+
+  /* HIGHLIGHTS */
+  .highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+  .highlight-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .highlight-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(124,92,191,0.1); }
+  .highlight-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .highlight-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--ink); }
+  .highlight-desc { font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* SKILLS */
+  .skills-bg { background: var(--white); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .skill-group-title {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-item {
+    font-size: 0.8rem; padding: 0.25rem 0.6rem;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--ink-soft);
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .about-stat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .about-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--accent);
+  }
+  .about-stat-label { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.25rem; }
+  .about-text p { color: var(--ink-soft); margin-bottom: 1rem; }
+  .about-text strong { color: var(--ink); }
+
+  /* CONTACT */
+  .contact-bg { background: var(--ink); }
+  .contact-bg .section-label { color: var(--gold); }
+  .contact-bg .section-title { color: var(--white); }
+  .contact-bg .section-sub { color: rgba(255,255,255,0.6); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .contact-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.1); }
+  .contact-card-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+  .contact-card-value { font-size: 0.95rem; color: var(--white); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; gap: 2rem; padding-top: 80px; }
+    .hero-visual { flex: none; width: 100%; }
+    .project-body { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Alizay Tanveer</a>
+  <ul class="nav-links">
+    <li><a href="#project">Project</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Full Stack Developer &amp; Digital Marketer</p>
+    <h1 class="hero-name">Alizay<br/><span>Tanveer</span></h1>
+    <p class="hero-tagline">I build complete web platforms — from database design to user interface — and understand how to grow them digitally.</p>
+    <div class="hero-badges">
+      <span class="badge">PHP &amp; MySQL</span>
+      <span class="badge">JavaScript</span>
+      <span class="badge">Full Stack</span>
+      <span class="badge">Digital Marketing</span>
+      <span class="badge">BZU Multan • CGPA 3.62</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#project" class="btn-primary">View My Project</a>
+      <a href="mailto:tanveeralizay837@gmail.com" class="btn-outline">Hire Me</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <p class="hero-visual-label">Project at a glance</p>
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">User Roles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">PHP Files</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3.62</div>
+        <div class="stat-label">CGPA</div>
+      </div>
+    </div>
+    <div class="mini-divider"></div>
+    <p style="font-size:0.78rem; font-weight:600; color:var(--ink-soft); margin-bottom:0.75rem; letter-spacing:0.05em; text-transform:uppercase;">Tech Stack</p>
+    <div class="tech-stack">
+      <span class="tech-tag">HTML5</span>
+      <span class="tech-tag">CSS3</span>
+      <span class="tech-tag">JavaScript</span>
+      <span class="tech-tag">PHP</span>
+      <span class="tech-tag">MySQL</span>
+      <span class="tech-tag">PDO</span>
+      <span class="tech-tag">Session Auth</span>
+      <span class="tech-tag">AJAX</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT -->
+<section id="project" class="project-bg">
+  <div class="container">
+    <p class="section-label">Final Year Project</p>
+    <h2 class="section-title">Virtual Marketplace for Local Artisans</h2>
+    <p class="section-sub">A full-stack e-commerce platform connecting Pakistani artisans with buyers — built with real security, real transactions, and real role-based access control.</p>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-tag">Full Stack Web Application</span>
+        <h3 class="project-title">End-to-end marketplace platform</h3>
+        <p class="project-desc">Designed and developed a complete multi-role marketplace from scratch — covering database architecture, backend logic, authentication, and a fully responsive storefront.</p>
+      </div>
+
+      <div class="project-body">
+        <div>
+          <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:1rem;">Key Features Built</p>
+          <ul class="feature-list">
+            <li>Role-based authentication — Admin, Seller, Customer with session management</li>
+            <li>Full product management — add, edit, stock tracking, image upload</li>
+            <li>Shopping cart backed by database (survives logout/login)</li>
+            <li>Checkout with JazzCash, Easypaisa &amp; Cash on Delivery simulation</li>
+            <li>Order tracking timeline — pending → processing → shipped → delivered</li>
+            <li>Reviews &amp; ratings — one review per verified purchase</li>
+            <li>Seller analytics dashboard — earnings, revenue, product performance</li>
+            <li>Search, category filter, price filter &amp; sort on product listings</li>
+            <li>SQL injection prevention via PDO prepared statements throughout</li>
+            <li>Transaction-safe checkout — prevents overselling via DB-level locks</li>
+          </ul>
+        </div>
+
+        <div>
+          <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:1rem;">Three User Roles</p>
+          <div class="role-cards">
+            <div class="role-card">
+              <div class="role-card-title">🛍️ Customer</div>
+              <div class="role-card-desc">Browse, filter, add to cart, checkout, track orders, leave reviews, manage profile</div>
+            </div>
+            <div class="role-card">
+              <div class="role-card-title">🎨 Seller (Artisan)</div>
+              <div class="role-card-desc">List products, manage orders, view earnings, respond to reviews, upload documents</div>
+            </div>
+            <div class="role-card">
+              <div class="role-card-title">⚙️ Admin</div>
+              <div class="role-card-desc">Verify sellers, manage users, oversee platform — dashboard in progress</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-tech-row">
+        <span class="project-tech-label">Built with:</span>
+        <span class="tech-tag">PHP</span>
+        <span class="tech-tag">MySQL</span>
+        <span class="tech-tag">PDO</span>
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Session Auth</span>
+        <span class="tech-tag">XAMPP</span>
+      </div>
+    </div>
+
+    <!-- Technical highlights -->
+    <p style="font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin: 3rem 0 1.25rem;">Technical Highlights</p>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">🔐</div>
+        <div class="highlight-title">Secure Authentication</div>
+        <div class="highlight-desc">Passwords hashed with bcrypt. All queries use PDO prepared statements — SQL injection safe throughout.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🔄</div>
+        <div class="highlight-title">DB-Backed Cart</div>
+        <div class="highlight-desc">Cart stored in MySQL, not sessions — survives logout/login. Consistent with the project's full-DB approach.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚡</div>
+        <div class="highlight-title">Transaction-Safe Checkout</div>
+        <div class="highlight-desc">Stock decremented inside a DB transaction with SELECT FOR UPDATE — prevents two customers overselling one item.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🛡️</div>
+        <div class="highlight-title">Ownership Checks</div>
+        <div class="highlight-desc">Every page validates session ownership — one user cannot access another's cart, orders, or data by URL manipulation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg">
+  <div class="container">
+    <p class="section-label">Technical Profile</p>
+    <h2 class="section-title">Skills &amp; Technologies</h2>
+    <p class="section-sub">A breadth of skills across frontend, backend, and marketing — rare in a single developer.</p>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-items">
+          <span class="skill-item">HTML5</span>
+          <span class="skill-item">CSS3</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">Responsive Design</span>
+          <span class="skill-item">XML</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Backend</div>
+        <div class="skill-items">
+          <span class="skill-item">PHP</span>
+          <span class="skill-item">Java</span>
+          <span class="skill-item">C / C++</span>
+          <span class="skill-item">PDO</span>
+          <span class="skill-item">Session Auth</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Database</div>
+        <div class="skill-items">
+          <span class="skill-item">MySQL</span>
+          <span class="skill-item">SQL</span>
+          <span class="skill-item">Schema Design</span>
+          <span class="skill-item">Migrations</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Digital Marketing</div>
+        <div class="skill-items">
+          <span class="skill-item">SEO</span>
+          <span class="skill-item">Google Analytics</span>
+          <span class="skill-item">Social Media</span>
+          <span class="skill-item">Content Strategy</span>
+          <span class="skill-item">Campaign Management</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools</div>
+        <div class="skill-items">
+          <span class="skill-item">Git / GitHub</span>
+          <span class="skill-item">XAMPP</span>
+          <span class="skill-item">phpMyAdmin</span>
+          <span class="skill-item">VS Code</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Mobile</div>
+        <div class="skill-items">
+          <span class="skill-item">Android Dev</span>
+          <span class="skill-item">Java (Android)</span>
+          <span class="skill-item">UI Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Developer who thinks like a marketer</h2>
+        <p>I am a <strong>Computer Science graduate from BZU Multan</strong> (CGPA 3.62) with a genuine passion for building things that work end-to-end — from the database schema up to the user interface.</p>
+        <p>What makes me different is my <strong>2 years of digital marketing experience alongside my technical degree</strong>. I understand not just how to build a product, but how to position and grow it — a rare combination in one person.</p>
+        <p>My Final Year Project — a full-stack marketplace for local artisans — taught me real-world engineering: secure authentication, transaction-safe databases, role-based access control, and responsive design for real users.</p>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-num">3.62</div>
+            <div class="about-stat-label">CGPA — BZU Multan</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">2 yrs</div>
+            <div class="about-stat-label">Digital Marketing</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">40+</div>
+            <div class="about-stat-label">Files built in FYP</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">3</div>
+            <div class="about-stat-label">Roles in one system</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-bg">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Open to remote opportunities</h2>
+    <p class="section-sub">Looking for a junior full stack or web developer role — remote preferred. Let's talk!</p>
+    <div class="contact-grid">
+      <a href="mailto:tanveeralizay837@gmail.com" class="contact-card">
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">tanveeralizay837@gmail.com</div>
+      </a>
+      <a href="tel:+923714736904" class="contact-card">
+        <div class="contact-card-label">Phone</div>
+        <div class="contact-card-value">+92 371 4736904</div>
+      </a>
+      <a href="https://www.linkedin.com/in/alizay-tanveer-ba7051370/" target="_blank" class="contact-card">
+        <div class="contact-card-label">LinkedIn</div>
+        <div class="contact-card-value">Alizay Tanveer</div>
+      </a>
+      <a href="#" class="contact-card">
+        <div class="contact-card-label">Location</div>
+        <div class="contact-card-value">Multan, Pakistan · Remote Ready</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Alizay Tanveer &mdash; Built with HTML, CSS &amp; JavaScript
+</footer>
+
+</body>
+</html>
